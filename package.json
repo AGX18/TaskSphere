@@ -1,0 +1,48 @@
+{
+  "name": "task_sphere",
+  "version": "1.0.0",
+  "description": "Task & Project Management Backend API",
+  "main": "index.js",
+  "scripts": {
+    "start": "tsx ./src/index.ts",
+    "db:generate": "drizzle-kit generate",
+    "db:push": "drizzle-kit push",
+    "db:migrate": "drizzle-kit migrate",
+    "db:studio": "drizzle-kit studio",
+    "db:seed": "node src/db/seed.ts",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "compile": "tsc",
+    "prepare": "npm run compile",
+    "pretest": "npm run compile",
+    "posttest": "npm run lint",
+    "lint": "eslint . --ext .ts,.js",
+    "lint:fix": "eslint . --ext .ts,.js --fix"
+  },
+  "author": "agx",
+  "license": "ISC",
+  "devDependencies": {
+    "@eslint/js": "^9.39.1",
+    "@types/express": "^5.0.5",
+    "@types/node": "^24.10.1",
+    "@types/pg": "^8.15.6",
+    "@typescript-eslint/eslint-plugin": "^8.47.0",
+    "@typescript-eslint/parser": "^8.47.0",
+    "drizzle-kit": "^0.31.7",
+    "eslint": "^9.39.1",
+    "globals": "^16.5.0",
+    "nodemon": "^3.1.11",
+    "prettier": "^3.6.2",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.47.0"
+  },
+  "dependencies": {
+    "@epic-web/remember": "^1.1.0",
+    "dotenv": "^17.2.3",
+    "drizzle-orm": "^0.44.7",
+    "express": "^5.1.0",
+    "mongoose": "^8.20.0",
+    "pg": "^8.16.3",
+    "zod": "^4.1.12"
+  }
+}
