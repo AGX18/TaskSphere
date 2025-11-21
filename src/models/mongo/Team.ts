@@ -1,18 +1,22 @@
-import mongoose, {Schema, Document} from 'mongoose';
+import mongoose, { Schema, Document } from "mongoose";
 
-export interface ITeamMember extends Document {
+export interface ITeam extends Document {
   name: string;
-  role: string;
+  role: string; // e.g. 'Developer', 'Designer', 'Manager'
   email: string;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 const TeamSchema: Schema = new Schema(
   {
-    name: {type: String, required: true},
-    role: {type: String, required: true}, // e.g., "Developer", "Manager"
-    email: {type: String, required: true, unique: true},
+    name: { type: String, required: true, trim: true },
+    role: { type: String, required: true, trim: true },
+    email: { type: String, required: true, unique: true, lowercase: true },
   },
-  {timestamps: true},
+  {
+    timestamps: true, // Automatically manages createdAt and updatedAt
+  },
 );
 
-export const Team = mongoose.model<ITeamMember>('Team', TeamSchema);
+export const Team = mongoose.model<ITeam>("Team", TeamSchema);
