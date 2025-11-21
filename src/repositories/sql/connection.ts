@@ -18,5 +18,5 @@ if (isProd()) {
   client = remember("dbPool", () => createPool());
 }
 
-export const db = drizzle({ client });
+export const db = drizzle({ client, casing: "snake_case" });
 export default db;

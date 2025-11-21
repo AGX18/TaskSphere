@@ -1,19 +1,19 @@
-import express from 'express';
+import express from "express";
 
 // Create Express application
 const app = express();
 
 // Health check endpoint - always good to have!
-app.get('/health', (req, res) => {
+app.get("/health", (req, res) => {
   res.status(200).json({
-    status: 'OK',
+    status: "OK",
     timestamp: new Date().toISOString(),
-    service: 'Habit Tracker API',
+    service: "task-sphere",
   });
 });
 
 // Export the app for use in other modules (like tests)
-export {app};
+export { app };
 
 // Default export for convenience
 export default app;

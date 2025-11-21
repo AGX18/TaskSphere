@@ -37,6 +37,3 @@ Thumbs.db
 
 # TypeScript specific
 *.tsbuildinfo
-
-# Drizzle ORM migrations
-/src/migrations
