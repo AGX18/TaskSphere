@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { taskService } from "../services/taskService";
 import { taskSchema } from "../utils/validators";
-import { AppError } from "src/utils/AppError";
+import { AppError } from "../utils/AppError";
 import { taskFilterSchema } from "../utils/validators";
 
 export const taskController = {
