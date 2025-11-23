@@ -4,6 +4,7 @@ import { errorHandler } from "./utils/errorHandler";
 import { Teamrouter } from "./routes/teamRoutes";
 import { ProjectRouter } from "./routes/projectRoutes";
 import { TaskRouter } from "./routes/taskRoutes";
+import { ReportRouter } from "./routes/reportRoutes";
 const app = express();
 
 app.use(express.json());
@@ -21,6 +22,7 @@ app.get("/health", (req, res) => {
 app.use("/api/teams", Teamrouter);
 app.use("/api/projects", ProjectRouter);
 app.use("/api/tasks", TaskRouter);
+app.use("/api/reports", ReportRouter);
 
 app.use(errorHandler);
 
