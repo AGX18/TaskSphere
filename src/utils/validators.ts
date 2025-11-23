@@ -2,6 +2,7 @@ import { z } from "zod";
 import mongoose from "mongoose";
 import { createInsertSchema } from "drizzle-zod";
 import { tasks } from "../models/sql/schema";
+import { statusEnum } from "../models/sql/schema";
 export const teamMemberSchema = z.object({
   name: z.string().min(1, { error: "Name is required" }).trim(),
   role: z.string().min(1, { error: "Role is required" }).trim(),
@@ -41,3 +42,13 @@ export const taskSchema = createInsertSchema(tasks, {
 });
 
 export type CreateTaskInput = z.infer<typeof taskSchema>;
+
+const taskStatusValidator = z.enum(statusEnum.enumValues);
+export const taskFilterSchema = z.object({
+  projectId: objectIdSchema.optional(),
+
+  // Use the derived validator here
+  status: taskStatusValidator.optional(),
+});
+
+export type TaskFilterInput = z.infer<typeof taskFilterSchema>;

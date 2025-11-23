@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from "express";
 import { taskService } from "../services/taskService";
-import { Types } from "mongoose";
 import { taskSchema } from "../utils/validators";
 import { AppError } from "src/utils/AppError";
+import { taskFilterSchema } from "../utils/validators";
 
 export const taskController = {
   create: async (req: Request, res: Response, next: NextFunction) => {
@@ -17,13 +17,15 @@ export const taskController = {
 
   getAll: async (req: Request, res: Response, next: NextFunction) => {
     try {
-      // Optional: Allow filtering by ?projectId=...
-      const rawId = req.query.projectId;
-      const projectId = typeof rawId === "string" ? rawId : undefined;
-      if (projectId && !Types.ObjectId.isValid(projectId)) {
-        throw new AppError("Invalid projectId", 400);
+      // Optional: Allow filtering by ?projectId=... and ?status=...
+      const result = taskFilterSchema.safeParse(req.query);
+      if (!result.success) {
+        const errorMessage = result.error.issues
+          .map((e) => e.message)
+          .join(", ");
+        throw new AppError(errorMessage, 400);
       }
-      const tasks = await taskService.getAllTasks(projectId);
+      const tasks = await taskService.getAllTasks(result.data);
       res.status(200).json(tasks);
     } catch (error) {
       next(error);
