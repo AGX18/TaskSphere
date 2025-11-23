@@ -1,5 +1,7 @@
 import { z } from "zod";
 import mongoose from "mongoose";
+import { createInsertSchema } from "drizzle-zod";
+import { tasks } from "../models/sql/schema";
 export const teamMemberSchema = z.object({
   name: z.string().min(1, { error: "Name is required" }).trim(),
   role: z.string().min(1, { error: "Role is required" }).trim(),
@@ -23,3 +25,19 @@ export const projectSchema = z.object({
 });
 
 export type CreateProjectInput = z.infer<typeof projectSchema>;
+
+// Task Validation Schema
+export const taskSchema = createInsertSchema(tasks, {
+  // validation logic Drizzle doesn't know about
+  projectId: (schema) => schema.length(24, "Invalid Project ID"),
+  assignedMemberId: (schema) =>
+    schema.length(24, "Invalid Team Member ID").optional(),
+  title: (schema) => schema.min(1, "Title is required").trim(),
+}).omit({
+  // Fields that user shouldn't provide
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export type CreateTaskInput = z.infer<typeof taskSchema>;
