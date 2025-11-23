@@ -1,9 +1,13 @@
 import express from "express";
-
-// Create Express application
+import { httpLogger } from "./middlewares/httpLogger";
+import { errorHandler } from "./utils/errorHandler";
+import { Teamrouter } from "./routes/teamRoutes";
 const app = express();
 
-// Health check endpoint - always good to have!
+app.use(express.json());
+app.use(httpLogger);
+
+// Health check endpoint
 app.get("/health", (req, res) => {
   res.status(200).json({
     status: "OK",
@@ -11,6 +15,10 @@ app.get("/health", (req, res) => {
     service: "task-sphere",
   });
 });
+
+app.use("/api/teams", Teamrouter);
+
+app.use(errorHandler);
 
 // Export the app for use in other modules (like tests)
 export { app };
