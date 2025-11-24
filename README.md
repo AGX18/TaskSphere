@@ -1,8 +1,3 @@
-Summary of Data Architecture
-PostgreSQL: Stores Tasks (linked to Projects via projectId string).
-
-MongoDB: Stores Projects and Teams.
-
 # TaskSphere – Modular Task & Project Management API
 
 **TaskSphere** is a professional-grade backend API designed to manage projects, tasks, and teams using a modular **MVC + Clean Architecture**. It has a hybrid database approach, leveraging **MongoDB** for flexible document storage (Projects/Teams) and **PostgreSQL** for structured relational data (Tasks).
